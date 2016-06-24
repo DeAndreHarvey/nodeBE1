@@ -1,0 +1,31 @@
+<div ng-controller='DashboardController'>
+  <div class="list">
+    <h2>Welcome {{currentuser.name}}</h2>
+    <div>
+      <div ng-messages='itemform.title.$error'>
+        <p ng-message='minlength'>The title is too short</p>
+        <p ng-message='required'>title required</p>
+      </div>
+      <div ng-messages='itemform.description.$error'>
+        <p ng-message='minlength'>description is too short</p>
+        <p ng-message='required'>description required</p>
+      </div>
+    <form name="itemform" action="index.html" method="post">
+      <input type="text" name='title' ng-minlength='5' required ng-model='newItem.title' placeholder="Title">
+      <input type="text" name='description' ng-minlength='10' required ng-model='newItem.description' placeholder="Description">
+      <select  ng-model='Item.user'>
+        <option ng-repeat='user in users' value="{{user.name}}" ng-bind='user.name'>option</option>
+      </select>
+      <input type="button" ng-click='addNewItem()' value="Add to List">
+    </form>
+    </div>
+    <div  >
+      <h3>Before I Die I want to.. </h3>
+      <p ng-repeat='item in items | limitTo:3'>{{item.name}}|{{item.title}} -{{item.description}} - {{item.createdAt | date:"MMMM dd yyyy 'at' h:mma"}}</p><br>
+    </div>
+  </div>
+    <div class="customerlist">
+      <h4>List of other users(Click to view profile):</h4>
+      <p ng-repeat="user in users | orderBy:'-createdAt'"><a href="#{{user._id}}">{{user.name}}</a>  </p>
+    </div>
+</div>
